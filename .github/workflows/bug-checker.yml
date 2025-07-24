@@ -6,8 +6,7 @@ on:
 
 jobs:
   check-for-log:
-    if:
-      - github.event.label.name == 'bug'
+    if: github.event.label.name == 'bug'
     runs-on: ubuntu-latest
     permissions:
       issues: write
