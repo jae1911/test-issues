@@ -34,6 +34,12 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number,
-                body: "Hi! Please attach a relevant log file in the **Log Files** section of your report (such as `error.log`). This helps us debug issues more efficiently. Thanks!"
+                body: `Hi! Thank you for reporting this bug on the Resonite issue tracker.
+                      We noticed you haven't attached a proper log file in your report.
+                      Including a log helps us pinpoint the exact issue which is why it is required during the report process.
+
+                      If you do not know where to find log files, please [see this tutorial on the Resonite Wiki](https://wiki.resonite.com/Log_Files#Regular_Log_Files) to see where to find them.
+
+                      Thank you!`
               });
             }
