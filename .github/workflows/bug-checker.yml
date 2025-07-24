@@ -1,0 +1,39 @@
+name: Check Log File on "bug" Label
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  check-log-file:
+    if: github.event.label.name == 'bug'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - name: Check for log file in "Log Files" template field
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue_number = context.issue.number;
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+            });
+
+            const body = issue.body || "";
+            const logSection = body.match(/### Log Files\s*\n+([\s\S]*?)(\n###|$)/i);
+            const logField = logSection ? logSection[1].trim() : "";
+
+            const hasLog = /\.log\b/i.test(logField);
+
+            if (!hasLog) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                body: "Hi! Please attach a relevant log file in the **Log Files** section of your report (such as `error.log`). This helps us debug issues more efficiently. Thanks!"
+              });
+            }
