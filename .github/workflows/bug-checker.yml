@@ -5,8 +5,9 @@ on:
     types: [labeled]
 
 jobs:
-  check-log-file:
-    if: github.event.label.name == 'bug'
+  check-for-log:
+    if:
+      - github.event.label.name == 'bug'
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -42,5 +43,12 @@ jobs:
             If you do not know where to find log files, please [see this tutorial on the Resonite Wiki](https://wiki.resonite.com/Log_Files#Regular_Log_Files) to see where to find them.
 
             Thank you!`
+              });
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                labels: ['needs more information']
               });
             }
