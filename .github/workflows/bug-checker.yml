@@ -13,6 +13,6 @@ jobs:
       contents: read
     steps:
       - name: Check for log file in "Log Files" template field
-        uses: Yellow-Dog-Man/logscanner-action@5b1592fa09b30242a08884a281fe7cfc89facc00
+        uses: Yellow-Dog-Man/logscanner-action@50fd4683516844ef2ed44e28e0ed4ece2ea8dba0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
